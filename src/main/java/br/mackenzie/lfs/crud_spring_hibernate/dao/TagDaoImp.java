@@ -52,7 +52,7 @@ public class TagDaoImp implements TagDao{
     }
 
     @Override
-    public List<Tag> getTag() {
+    public List<Tag> getTags() {
         return getCurrentSession().createQuery("from Tag").list();
     }
     

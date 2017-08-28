@@ -18,6 +18,6 @@ public interface TagDao {
     public void updateTag(Tag tag);
     public Tag getTag(int id);
     public void deleteTag(int id);
-    public List<Tag> getTag();
+    public List<Tag> getTags();
     
 }
