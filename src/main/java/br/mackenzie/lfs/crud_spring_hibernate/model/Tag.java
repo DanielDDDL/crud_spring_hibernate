@@ -27,11 +27,8 @@ public class Tag {
     @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
     
-    @Column(name = "id", nullable = false, length = 255)
+    @Column(name = "description", nullable = false, length = 255)
     private String description;
-    
-    @ManyToMany
-    private List<Book> books;
     
     public Integer getId() {
         return id;
@@ -47,14 +44,6 @@ public class Tag {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
     
 }
