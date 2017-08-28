@@ -5,15 +5,15 @@
  */
 package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
-import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
-import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+    import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
+    import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.ModelAttribute;
+    import org.springframework.web.bind.annotation.PathVariable;
+    import org.springframework.web.bind.annotation.RequestMapping;
+    import org.springframework.web.bind.annotation.RequestMethod;
+    import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -53,7 +53,7 @@ public class TagController {
         Tag tag = tagService.getTag(id);
         
         ModelAndView modelAndView = new ModelAndView("form-tag");
-        modelAndView.addObject("tag",tagService);
+        modelAndView.addObject("tag",tag);
         
         return modelAndView;
     }
@@ -74,7 +74,7 @@ public class TagController {
     public ModelAndView deleteTag(@PathVariable Integer id){
         
         tagService.deleteTag(id);
-        String message = "Book deleted successfully.";
+        String message = "Tag deleted successfully.";
         
         ModelAndView modelAndView = new ModelAndView("home");
         modelAndView.addObject("message", message);
