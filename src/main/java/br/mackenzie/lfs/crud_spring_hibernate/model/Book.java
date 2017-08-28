@@ -64,7 +64,13 @@ public class Book {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
-    
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
     
 }
