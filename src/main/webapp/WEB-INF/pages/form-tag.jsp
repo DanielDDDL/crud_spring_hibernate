@@ -35,7 +35,7 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Add" /></td>
-                        <td></td>
+                        <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/index'" value="Cancel"/></td>
                     </tr>
                 </tbody>
             </table>
