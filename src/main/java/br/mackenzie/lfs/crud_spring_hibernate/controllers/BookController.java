@@ -52,22 +52,17 @@ public class BookController {
         
         Book book = bookService.getBook(id);
         
-        ModelAndView modelAndView = new ModelAndView("form-book");
+        ModelAndView modelAndView = new ModelAndView("form-book-edit");
         modelAndView.addObject("book",book);
         
         return modelAndView;
     }
     
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id){
         
         bookService.updateBook(book);
-        String message = "Book updated successfully.";
-        
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("message",message);
-        
-        return modelAndView;    
+        return new ModelAndView("redirect:/index");   
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

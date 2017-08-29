@@ -52,22 +52,17 @@ public class TagController {
         
         Tag tag = tagService.getTag(id);
         
-        ModelAndView modelAndView = new ModelAndView("form-tag");
+        ModelAndView modelAndView = new ModelAndView("form-tag-edit");
         modelAndView.addObject("tag",tag);
         
         return modelAndView;
     }
 
-    @RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editTagProcess(@ModelAttribute Tag tag, @PathVariable Integer id){
         
         tagService.updateTag(tag);
-        String message = "Tag updated successfully.";
-        
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("message",message);
-        
-        return modelAndView;    
+        return new ModelAndView("redirect:/index");   
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

@@ -18,9 +18,9 @@
         <title>Add book page</title>
     </head>
     <body>
-        <h1>Add book page</h1>
-        <p>Here you can add a new book.</p>
-        <form:form method="POST" commandName="book" action="${pageContext.request.contextPath}/book/add.html">
+        <h1>Edit book page</h1>
+        <p>Editing book.</p>
+        <form:form method="POST" commandName="book" action="${pageContext.request.contextPath}/book/edit/${book.id}.html">
             <table>
                 <tbody>
                     <tr>
@@ -32,7 +32,7 @@
                         <td><form:input path="author" /></td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="Add" /></td>
+                        <td><input type="submit" value="Edit" /></td>
                         <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/index'" value="Cancel"/></td>
                     </tr>
                 </tbody>
