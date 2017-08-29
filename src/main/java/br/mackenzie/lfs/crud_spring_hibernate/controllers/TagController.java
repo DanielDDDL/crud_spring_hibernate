@@ -74,12 +74,7 @@ public class TagController {
     public ModelAndView deleteTag(@PathVariable Integer id){
         
         tagService.deleteTag(id);
-        String message = "Tag deleted successfully.";
-        
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("message", message);
-        
-        return modelAndView;
+        return new ModelAndView("redirect:/index");
     }
     
     

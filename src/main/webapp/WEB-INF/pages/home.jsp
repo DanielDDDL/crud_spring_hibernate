@@ -39,8 +39,33 @@
                 </c:forEach>
             </tbody>
         </table>
+        
+        <a href="${pageContext.request.contextPath}/book/add.html">Add new book</a><br/>
 
-        <p><a href="${pageContext.request.contextPath}/index.html">Home page</a></p>
+        <table border="1px" cellpadding="0" cellspacing="0" >
+            <thead>
+                <tr>
+                    <th width="10%">id</th>
+                    <th width="15%">description</th>
+                    <th width="10%">actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach var="tag" items="${tags}">
+                    <tr>
+                        <td>${tag.id}</td>
+                        <td>${tag.description}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/tag/edit/${tag.id}.html">Edit</a><br/>
+                            <a href="${pageContext.request.contextPath}/tag/delete/${tag.id}.html">Delete</a><br/>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        
+        <a href="${pageContext.request.contextPath}/tag/add.html">Add new tag</a><br/>
+
 
     </body>
 </html>

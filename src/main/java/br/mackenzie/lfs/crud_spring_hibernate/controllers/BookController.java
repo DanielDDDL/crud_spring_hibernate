@@ -73,9 +73,7 @@ public class BookController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteBook(@PathVariable Integer id){
         
-        bookService.deleteBook(id);
-        String message = "Book deleted successfully.";
-        
+        bookService.deleteBook(id);        
         return new ModelAndView("redirect:/index");
     }
     
