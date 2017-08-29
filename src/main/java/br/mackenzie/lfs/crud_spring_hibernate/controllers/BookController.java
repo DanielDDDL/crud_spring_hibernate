@@ -76,10 +76,7 @@ public class BookController {
         bookService.deleteBook(id);
         String message = "Book deleted successfully.";
         
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("message", message);
-        
-        return modelAndView;
+        return new ModelAndView("redirect:/index");
     }
     
 }
