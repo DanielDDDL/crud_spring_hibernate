@@ -43,3 +43,6 @@ buildNumber.properties
 
 # database location, user and password
 access.properties
+
+# compiling, deploying and undeploying
+*.sh
