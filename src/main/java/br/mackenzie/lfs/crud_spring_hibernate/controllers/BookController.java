@@ -9,6 +9,7 @@ import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
 import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,11 +36,11 @@ public class BookController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addBookPage() {
         
-        List<Tag> allTags = tagService.getTags();
+        List<Tag> tags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book");
         modelAndView.addObject("book", new Book());
-        modelAndView.addObject("tags", allTags);
+        modelAndView.addObject("tags", tags);
 
         return modelAndView;
     }
@@ -55,11 +56,11 @@ public class BookController {
     public ModelAndView editBookPage(@PathVariable Integer id) {
                 
         Book book = bookService.getBook(id);        
-        List<Tag> allTags = tagService.getTags();
+        List<Tag> tags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book-edit");
         modelAndView.addObject("book",book);
-        modelAndView.addObject("tags",allTags);
+        modelAndView.addObject("tags",tags);
         
         return modelAndView;
     }

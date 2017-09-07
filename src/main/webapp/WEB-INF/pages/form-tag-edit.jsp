@@ -31,7 +31,7 @@
                 <tbody>
                     <tr>
                         <td>Description</td>
-                        <td><form:input path="description" /></td>
+                        <td><form:input path="description" autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Edit" /></td>

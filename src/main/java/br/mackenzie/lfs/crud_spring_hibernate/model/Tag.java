@@ -6,6 +6,7 @@
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,26 +49,36 @@ public class Tag {
 
     @Override
     public boolean equals(Object obj) {
-        
-        if(obj == null)
-            return false;
-        
-        Tag other = (Tag)obj;
-        if(this.getId() == other.getId() && 
-           this.description.equals(other.getDescription()))
+        if (this == obj) {
             return true;
-        
-        return false;
-        
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tag other = (Tag) obj;
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.description);
+        return hash;
+    }
+    
     @Override
     public String toString() {
         return this.description;
     }
-    
-    
-    
-    
     
 }

@@ -25,11 +25,16 @@
                 <tbody>
                     <tr>
                         <td>Title:</td>
-                        <td><form:input path="title" /></td>
+                        <td><form:input path="title" autocomplete="off"/></td>
                     </tr>
                     <tr>
                         <td>Author:</td>
-                        <td><form:input path="author" /></td>
+                        <td><form:input path="author" autocomplete="off" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <form:checkboxes path="tags" items="${tags}"/>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Add" /></td>
@@ -38,7 +43,6 @@
                 </tbody>
             </table>
 
-            <form:checkboxes path="tags" items="${tags}"/>
         </form:form>
 
     </body>

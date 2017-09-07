@@ -18,8 +18,7 @@
     </head>
     <body>
         <h1>List of books</h1>
-        <p>Here you can see the list of the teams, edit them, remove or update.</p>
-        <table border="1px" cellpadding="0" cellspacing="0" >
+        <table border="1px" cellpadding="0" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th width="10%">id</th><th width="15%">title</th><th width="10%">author</th><th width="10%">actions</th>
@@ -42,7 +41,7 @@
         
         <a href="${pageContext.request.contextPath}/book/add.html">Add new book</a><br/>
 
-        <table border="1px" cellpadding="0" cellspacing="0" >
+        <table border="1px" cellpadding="0" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th width="10%">id</th>
