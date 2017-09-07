@@ -6,7 +6,11 @@
 package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
+import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
 import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
+import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +29,9 @@ public class BookController {
     
     @Autowired
     private BookService bookService;
+    
+    @Autowired
+    private TagService tagService;
     
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addBookPage() {
@@ -50,16 +57,25 @@ public class BookController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBookPage(@PathVariable Integer id) {
         
+        System.out.println("I passed through the edit page controller");
+        
         Book book = bookService.getBook(id);
+        if(book.getTags() == null)
+            book.setTags(new ArrayList<Tag>());
+        
+        List<Tag> allTags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book-edit");
         modelAndView.addObject("book",book);
+        modelAndView.addObject("tags",allTags);
         
         return modelAndView;
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id){
+        
+        System.out.println("I passed through the editing process controller");
         
         bookService.updateBook(book);
         return new ModelAndView("redirect:/index");   

@@ -45,5 +45,29 @@ public class Tag {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        
+        if(obj == null)
+            return false;
+        
+        Tag other = (Tag)obj;
+        if(this.getId() == other.getId() && 
+           this.description.equals(other.getDescription()))
+            return true;
+        
+        return false;
+        
+    }
+
+    @Override
+    public String toString() {
+        return this.description;
+    }
+    
+    
+    
+    
     
 }

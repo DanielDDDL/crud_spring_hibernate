@@ -20,7 +20,7 @@
     <body>
         <h1>Edit book page</h1>
         <p>Editing book.</p>
-        <form:form method="POST" commandName="book" action="${pageContext.request.contextPath}/book/edit/${book.id}.html">
+        <form:form method="POST" modelAttribute="book" action="${pageContext.request.contextPath}/book/edit/${book.id}.html">
             <table>
                 <tbody>
                     <tr>
@@ -33,11 +33,14 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Edit" /></td>
-                        <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/index'" value="Cancel"/></td>
+                        <td><input type="button"  onclick="location.href = '${pageContext.request.contextPath}/index'" value="Cancel"/></td>
                     </tr>
                 </tbody>
             </table>
+
+            <form:checkboxes path="tags" items="${tags}"/>
+
         </form:form>
-        
+
     </body>
 </html>

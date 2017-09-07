@@ -6,8 +6,10 @@
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +37,7 @@ public class Book {
     @Column(name = "author", nullable = false, length = 255)
     private String author;
     
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "book_tag",
                joinColumns = { @JoinColumn(name = "fk_book") },
                inverseJoinColumns = { @JoinColumn(name = "fk_tag") })
