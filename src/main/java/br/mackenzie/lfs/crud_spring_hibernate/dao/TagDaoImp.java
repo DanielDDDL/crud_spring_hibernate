@@ -36,7 +36,9 @@ public class TagDaoImp implements TagDao{
         Tag tagToUpdate = getTag(tag.getId());
         tagToUpdate.setDescription(tag.getDescription());
         
-        getCurrentSession().update(tag);
+        Session session = getCurrentSession();
+        session.clear();
+        session.update(tag);
     }
 
     @Override
