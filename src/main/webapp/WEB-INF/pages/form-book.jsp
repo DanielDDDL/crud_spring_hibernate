@@ -33,11 +33,13 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Add" /></td>
-                        <td><input type="button"  onclick="location.href='${pageContext.request.contextPath}/index'" value="Cancel"/></td>
+                        <td><input type="button"  onclick="location.href = '${pageContext.request.contextPath}/index'" value="Cancel"/></td>
                     </tr>
                 </tbody>
             </table>
+
+            <form:checkboxes path="tags" items="${tags}"/>
         </form:form>
-        
+
     </body>
 </html>

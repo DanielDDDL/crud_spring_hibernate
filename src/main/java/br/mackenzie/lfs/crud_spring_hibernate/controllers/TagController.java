@@ -39,12 +39,7 @@ public class TagController {
     public ModelAndView addTagProcess(@ModelAttribute Tag tag) {
 
         tagService.addTag(tag);
-
-        ModelAndView modelAndView = new ModelAndView("form-tag");
-        String message = "Tag was successfully added.";
-        modelAndView.addObject("message", message);
-
-        return modelAndView;
+        return new ModelAndView("form-tag");
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

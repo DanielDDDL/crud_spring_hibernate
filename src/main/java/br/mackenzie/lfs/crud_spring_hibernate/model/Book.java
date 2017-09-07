@@ -5,6 +5,7 @@
  */
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Book {
     @Column(name = "author", nullable = false, length = 255)
     private String author;
     
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "book_tag",
                joinColumns = { @JoinColumn(name = "fk_book") },
                inverseJoinColumns = { @JoinColumn(name = "fk_tag") })
@@ -68,6 +69,7 @@ public class Book {
     }
 
     public List<Tag> getTags() {
+        if(tags == null) tags = new ArrayList();
         return tags;
     }
 

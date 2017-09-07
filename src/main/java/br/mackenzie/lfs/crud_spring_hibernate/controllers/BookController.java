@@ -9,7 +9,6 @@ import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
 import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,8 +35,11 @@ public class BookController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addBookPage() {
         
+        List<Tag> allTags = tagService.getTags();
+        
         ModelAndView modelAndView = new ModelAndView("form-book");
         modelAndView.addObject("book", new Book());
+        modelAndView.addObject("tags", allTags);
 
         return modelAndView;
     }
@@ -46,23 +48,13 @@ public class BookController {
     public ModelAndView addBookProcess(@ModelAttribute Book book) {
 
         bookService.addBook(book);
-
-        ModelAndView modelAndView = new ModelAndView("form-book");
-        String message = "Book was successfully added.";
-        modelAndView.addObject("message", message);
-
-        return modelAndView;
+        return new ModelAndView("form-book");
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBookPage(@PathVariable Integer id) {
-        
-        System.out.println("I passed through the edit page controller");
-        
-        Book book = bookService.getBook(id);
-        if(book.getTags() == null)
-            book.setTags(new ArrayList<Tag>());
-        
+                
+        Book book = bookService.getBook(id);        
         List<Tag> allTags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book-edit");
@@ -74,9 +66,7 @@ public class BookController {
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id){
-        
-        System.out.println("I passed through the editing process controller");
-        
+                
         bookService.updateBook(book);
         return new ModelAndView("redirect:/index");   
     }
