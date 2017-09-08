@@ -20,12 +20,12 @@
     <body>
         <h1>Add book page</h1>
         <p>Here you can add a new book.</p>
-        <form:form method="POST" commandName="book" action="${pageContext.request.contextPath}/book/add.html">
+        <form:form method="POST" modelAttribute="book" action="${pageContext.request.contextPath}/book/add.html">
             <table>
                 <tbody>
                     <tr>
                         <td>Title:</td>
-                        <td><form:input path="title" autocomplete="off"/></td>
+                        <td><form:input path="title" autocomplete="off" /></td>
                     </tr>
                     <tr>
                         <td>Author:</td>
@@ -38,7 +38,7 @@
                     </tr>
                     <tr>
                         <td><input type="submit" value="Add" /></td>
-                        <td><input type="button"  onclick="location.href = '${pageContext.request.contextPath}/index'" value="Cancel"/></td>
+                        <td><input type="button" onclick="location.href = '${pageContext.request.contextPath}/index'" value="Cancel"/></td>
                     </tr>
                 </tbody>
             </table>

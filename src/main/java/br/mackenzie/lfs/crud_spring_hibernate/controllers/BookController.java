@@ -35,7 +35,7 @@ public class BookController {
     
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addBookPage() {
-        
+                
         List<Tag> tags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book");
@@ -49,7 +49,7 @@ public class BookController {
     public ModelAndView addBookProcess(@ModelAttribute Book book) {
 
         bookService.addBook(book);
-        return new ModelAndView("form-book");
+        return new ModelAndView("redirect:/book/add");
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

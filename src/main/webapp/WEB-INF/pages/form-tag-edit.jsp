@@ -26,7 +26,7 @@
     <body>
         <h1>Edit tag page</h1>
         <p>Here you can add a new tag.</p>
-        <form:form method="POST" commandName="tag" action="${pageContext.request.contextPath}/tag/edit/${tag.id}.html">
+        <form:form method="POST" modelAttribute="tag" action="${pageContext.request.contextPath}/tag/edit/${tag.id}.html">
             <table>
                 <tbody>
                     <tr>

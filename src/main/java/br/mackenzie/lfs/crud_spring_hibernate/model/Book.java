@@ -70,6 +70,7 @@ public class Book {
     }
 
     public List<Tag> getTags() {
+        if(tags == null) tags = new ArrayList<Tag>();
         return tags;
     }
 

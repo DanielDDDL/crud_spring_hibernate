@@ -25,15 +25,15 @@
                 <tbody>
                     <tr>
                         <td>Title:</td>
-                        <td><form:input path="title" autocomplete="off"/></td>
+                        <td><form:input path="title" autocomplete="off" /></td>
                     </tr>
                     <tr>
                         <td>Author:</td>
-                        <td><form:input path="author" autocomplete="off"/></td>
+                        <td><form:input path="author" autocomplete="off" /></td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <form:checkboxes path="tags" items="${tags}"/>
+                            <form:checkboxes path="tags" items="${tags}" />
                         </td>
                     </tr>
                     <tr>
