@@ -5,14 +5,13 @@
  */
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -21,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="tb_tags")
-public class Tag {
+public class Tag implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,14 +65,6 @@ public class Tag {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.description);
-        return hash;
     }
     
     @Override

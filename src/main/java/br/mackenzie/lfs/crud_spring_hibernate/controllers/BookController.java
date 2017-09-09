@@ -7,12 +7,16 @@ package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
+import br.mackenzie.lfs.crud_spring_hibernate.model.request.BookRequest;
 import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author daniel
+ * @author Dias
  */
 @Controller
 @RequestMapping(value = "/book")
@@ -39,16 +43,30 @@ public class BookController {
         List<Tag> tags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book");
-        modelAndView.addObject("book", new Book());
+        modelAndView.addObject("book", new BookRequest());
         modelAndView.addObject("tags", tags);
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addBookProcess(@ModelAttribute Book book) {
-
-        bookService.addBook(book);
+    public ModelAndView addBookProcess(@ModelAttribute BookRequest book, BindingResult bindingResult) {
+        
+        //TO SEE THE ERROR THAT OCCUR WHILE SENDING THE FORM
+        if(bindingResult.hasErrors()){
+            
+            System.out.println("Quantity of errors: "  + bindingResult.getErrorCount());
+            
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            for (ObjectError error : errors){
+                System.out.println(error.getDefaultMessage());
+            }
+        } else {
+            System.out.println("size of the list of tags selected: "  + book.getTags().size());
+            
+        }
+        
+//        bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");
     }
     

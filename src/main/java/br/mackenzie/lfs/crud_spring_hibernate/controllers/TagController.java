@@ -39,7 +39,7 @@ public class TagController {
     public ModelAndView addTagProcess(@ModelAttribute Tag tag) {
 
         tagService.addTag(tag);
-        return new ModelAndView("form-tag");
+        return new ModelAndView("redirect:/tag/add");
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

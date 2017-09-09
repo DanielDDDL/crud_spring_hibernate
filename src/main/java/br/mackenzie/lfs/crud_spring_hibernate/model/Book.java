@@ -5,7 +5,7 @@
  */
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
@@ -26,7 +26,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="tb_books")
-public class Book {
+public class Book implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,22 +70,11 @@ public class Book {
     }
 
     public List<Tag> getTags() {
-        if(tags == null) tags = new ArrayList<Tag>();
         return tags;
     }
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.title);
-        hash = 97 * hash + Objects.hashCode(this.author);
-        hash = 97 * hash + Objects.hashCode(this.tags);
-        return hash;
     }
 
     @Override
