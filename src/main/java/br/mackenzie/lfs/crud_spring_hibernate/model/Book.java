@@ -19,6 +19,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -39,10 +42,14 @@ public class Book implements Serializable{
     @Column(name = "author", nullable = false, length = 255)
     private String author;
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {
+                    CascadeType.PERSIST, 
+                    CascadeType.MERGE
+                }, 
+                fetch = FetchType.EAGER)
     @JoinTable(name = "book_tag",
-               joinColumns = { @JoinColumn(name = "fk_book") },
-               inverseJoinColumns = { @JoinColumn(name = "fk_tag") })
+               joinColumns = { @JoinColumn(name = "book_id") },
+               inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     private List<Tag> tags;
 
     public Integer getId() {
