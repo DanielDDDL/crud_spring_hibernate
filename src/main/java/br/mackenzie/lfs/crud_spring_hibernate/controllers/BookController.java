@@ -53,25 +53,6 @@ public class BookController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addBookProcess(@ModelAttribute Book book, BindingResult bindingResult) {
-        
-//        //TO SEE THE ERROR THAT OCCUR WHILE SENDING THE FORM
-//        if(bindingResult.hasErrors()){
-//            
-//            System.out.println("Quantity of errors: "  + bindingResult.getErrorCount());
-//            
-//            List<ObjectError> errors = bindingResult.getAllErrors();
-//            for (ObjectError error : errors){
-//                System.out.println(error.getDefaultMessage());
-//            }
-//        } else {
-//            System.out.println("size of the list of tags selected: "  + book.getTags().size());
-//            
-//        }
-        
-        if(book.getTags() == null)
-            System.out.println("Lista nula de livros");
-        else
-            System.out.println("Tamanho da lista de tags: " + book.getTags().size());
 
         bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");

@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1>Edit book page</h1>
-        <p>Editing book.</p>
+        <p>Editing book ${book.title}</p>
         <form:form method="POST" modelAttribute="book" action="${pageContext.request.contextPath}/book/edit/${book.id}.html">
             <table>
                 <tbody>
@@ -33,7 +33,11 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <form:checkboxes path="tags" items="${tags}" />
+                            <form:checkboxes path="tags" 
+                                             items="${tags}"
+                                             itemLabel="description"
+                                             itemValue="id"
+                                             delimiter="<br/>"/>
                         </td>
                     </tr>
                     <tr>
@@ -43,7 +47,7 @@
                 </tbody>
             </table>
 
-            
+
 
         </form:form>
 
