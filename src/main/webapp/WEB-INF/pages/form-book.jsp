@@ -35,7 +35,10 @@
                         <td colspan="2">
                             
                             <form:checkboxes path="tags" 
-                                             items="${tags}"/>
+                                             items="${tags}"
+                                             itemLabel="description"
+                                             itemValue="id"
+                                             delimiter="<br/>"/>
                         </td>
                     </tr>
                     <tr>

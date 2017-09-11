@@ -78,6 +78,16 @@ public class Book implements Serializable{
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.title);
+        hash = 17 * hash + Objects.hashCode(this.author);
+        hash = 17 * hash + Objects.hashCode(this.tags);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

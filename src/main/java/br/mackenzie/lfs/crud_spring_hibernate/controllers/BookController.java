@@ -7,7 +7,7 @@ package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
-import br.mackenzie.lfs.crud_spring_hibernate.model.request.BookRequest;
+import br.mackenzie.lfs.crud_spring_hibernate.model.request.TagPropertyEditor;
 import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,30 +45,35 @@ public class BookController {
         List<Tag> tags = tagService.getTags();
         
         ModelAndView modelAndView = new ModelAndView("form-book");
-        modelAndView.addObject("book", new BookRequest());
+        modelAndView.addObject("book", new Book());
         modelAndView.addObject("tags", tags);
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addBookProcess(@ModelAttribute BookRequest book, BindingResult bindingResult) {
+    public ModelAndView addBookProcess(@ModelAttribute Book book, BindingResult bindingResult) {
         
-        //TO SEE THE ERROR THAT OCCUR WHILE SENDING THE FORM
-        if(bindingResult.hasErrors()){
-            
-            System.out.println("Quantity of errors: "  + bindingResult.getErrorCount());
-            
-            List<ObjectError> errors = bindingResult.getAllErrors();
-            for (ObjectError error : errors){
-                System.out.println(error.getDefaultMessage());
-            }
-        } else {
-            System.out.println("size of the list of tags selected: "  + book.getTags().size());
-            
-        }
+//        //TO SEE THE ERROR THAT OCCUR WHILE SENDING THE FORM
+//        if(bindingResult.hasErrors()){
+//            
+//            System.out.println("Quantity of errors: "  + bindingResult.getErrorCount());
+//            
+//            List<ObjectError> errors = bindingResult.getAllErrors();
+//            for (ObjectError error : errors){
+//                System.out.println(error.getDefaultMessage());
+//            }
+//        } else {
+//            System.out.println("size of the list of tags selected: "  + book.getTags().size());
+//            
+//        }
         
-//        bookService.addBook(book);
+        if(book.getTags() == null)
+            System.out.println("Lista nula de livros");
+        else
+            System.out.println("Tamanho da lista de tags: " + book.getTags().size());
+
+        bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");
     }
     
@@ -95,6 +102,11 @@ public class BookController {
         
         bookService.deleteBook(id);        
         return new ModelAndView("redirect:/index");
+    }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        binder.registerCustomEditor(Tag.class, new TagPropertyEditor(tagService));
     }
     
 }
