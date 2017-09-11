@@ -46,3 +46,7 @@ access.properties
 
 # compiling, deploying and undeploying
 *.sh
+
+nb-configuration.xml
+crud_spring_hibernate.iml
+.idea/
