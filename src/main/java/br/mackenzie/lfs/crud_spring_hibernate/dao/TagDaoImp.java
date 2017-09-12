@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.mackenzie.lfs.crud_spring_hibernate.dao;
 
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
@@ -35,7 +31,8 @@ public class TagDaoImp implements TagDao{
     public void updateTag(Tag tag) {
         Tag tagToUpdate = getTag(tag.getId());
         tagToUpdate.setDescription(tag.getDescription());
-        
+        tagToUpdate.setBooks(tag.getBooks());
+
         Session session = getCurrentSession();
         session.clear();
         session.update(tag);

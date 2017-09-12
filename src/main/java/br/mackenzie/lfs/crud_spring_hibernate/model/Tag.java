@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -21,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="tb_tags")
-public class Tag {
+public class Tag implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +21,18 @@ public class Tag {
     
     @Column(name = "description", nullable = false, length = 255)
     private String description;
+
+    @ManyToMany(cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+                },
+                fetch = FetchType.EAGER)
+    @JoinTable(name = "book_tag",
+               joinColumns = { @JoinColumn(name = "tag_id") },
+               inverseJoinColumns = { @JoinColumn(name = "book_id") })
+    private List<Book> books;
     
     public Integer getId() {
         return id;
@@ -45,6 +48,14 @@ public class Tag {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
@@ -66,14 +77,6 @@ public class Tag {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.id);
-        hash = 41 * hash + Objects.hashCode(this.description);
-        return hash;
     }
     
     @Override

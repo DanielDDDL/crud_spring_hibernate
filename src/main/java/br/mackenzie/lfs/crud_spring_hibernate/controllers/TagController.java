@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
     import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
@@ -39,7 +35,7 @@ public class TagController {
     public ModelAndView addTagProcess(@ModelAttribute Tag tag) {
 
         tagService.addTag(tag);
-        return new ModelAndView("form-tag");
+        return new ModelAndView("redirect:/tag/add");
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

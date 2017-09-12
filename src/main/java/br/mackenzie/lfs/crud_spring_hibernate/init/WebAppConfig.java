@@ -1,27 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.mackenzie.lfs.crud_spring_hibernate.init;
 
-import java.util.Properties;
-import javax.sql.DataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  *
@@ -36,19 +29,15 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
         @PropertySource("classpath:database.properties")
 })
 public class WebAppConfig {
-    
-    //access and authentication properties
-    private static final String PROPERTY_NAME_DATABASE_URL = "database.url";
-    private static final String PROPERTY_NAME_DATABASE_USERNAME = "database.username";
-    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "database.password";
-    private static final String PROPERTY_NAME_DATABASE_DRIVER = "database.driver";
-    
+
     //hibernat config propeties
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
     private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
     private static final String PROPERTY_NAME_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
-    
+
+    private static final String PROPERTY_NAME_JNDI = "database.jndi";
+
     @Autowired
     private Environment env;
     
@@ -62,14 +51,11 @@ public class WebAppConfig {
     }
     
     @Bean
-    public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-         
-        dataSource.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-        dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-         
+    public DataSource dataSource() {
+
+        JndiDataSourceLookup dsLookup = new JndiDataSourceLookup();
+        dsLookup.setResourceRef(true);
+        DataSource dataSource = dsLookup.getDataSource(env.getProperty(PROPERTY_NAME_JNDI));
         return dataSource;
     }
     
