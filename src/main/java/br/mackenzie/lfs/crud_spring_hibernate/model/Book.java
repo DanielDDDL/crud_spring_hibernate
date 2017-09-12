@@ -26,8 +26,10 @@ public class Book implements Serializable{
     private String author;
     
     @ManyToMany(cascade = {
-                    CascadeType.PERSIST, 
-                    CascadeType.MERGE
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
                 }, 
                 fetch = FetchType.EAGER)
     @JoinTable(name = "book_tag",

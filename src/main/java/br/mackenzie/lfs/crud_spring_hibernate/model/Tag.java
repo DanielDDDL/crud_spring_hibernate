@@ -2,13 +2,9 @@
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -25,6 +21,18 @@ public class Tag implements Serializable {
     
     @Column(name = "description", nullable = false, length = 255)
     private String description;
+
+    @ManyToMany(cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+                },
+                fetch = FetchType.EAGER)
+    @JoinTable(name = "book_tag",
+               joinColumns = { @JoinColumn(name = "tag_id") },
+               inverseJoinColumns = { @JoinColumn(name = "book_id") })
+    private List<Book> books;
     
     public Integer getId() {
         return id;
@@ -40,6 +48,14 @@ public class Tag implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
