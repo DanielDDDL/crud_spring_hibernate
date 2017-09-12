@@ -1,6 +1,7 @@
 
 package br.mackenzie.lfs.crud_spring_hibernate.services;
 
+import br.mackenzie.lfs.crud_spring_hibernate.exceptions.BookNotFoundException;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface BookService {
     
-    public void addBook(Book book);
-    public void updateBook(Book book);
-    public Book getBook(int id);
-    public void deleteBook(int id);
-    public List<Book> getBooks();
+    void addBook(Book book);
+    void updateBook(Book book) throws BookNotFoundException;
+    Book getBook(int id);
+    void deleteBook(int id) throws BookNotFoundException;
+    List<Book> getBooks();
 
 }

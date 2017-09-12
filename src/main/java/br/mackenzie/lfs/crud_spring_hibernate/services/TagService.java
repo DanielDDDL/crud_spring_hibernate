@@ -1,6 +1,7 @@
 
 package br.mackenzie.lfs.crud_spring_hibernate.services;
 
+import br.mackenzie.lfs.crud_spring_hibernate.exceptions.TagNotFoundException;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public interface TagService {
     
-    public void addTag(Tag tag);
-    public void updateTag(Tag tag);
-    public Tag getTag(int id);
-    public void deleteTag(int id);
-    public List<Tag> getTags();
+    void addTag(Tag tag);
+    void updateTag(Tag tag) throws TagNotFoundException;
+    Tag getTag(int id);
+    void deleteTag(int id) throws TagNotFoundException;
+    List<Tag> getTags();
     
 }
