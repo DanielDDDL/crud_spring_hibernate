@@ -1,6 +1,7 @@
 
 package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
+    import br.mackenzie.lfs.crud_spring_hibernate.exceptions.TagNotFoundException;
     import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
     import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,14 @@ public class TagController {
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editTagProcess(@ModelAttribute Tag tag, @PathVariable Integer id){
+    public ModelAndView editTagProcess(@ModelAttribute Tag tag, @PathVariable Integer id) throws TagNotFoundException {
         
         tagService.updateTag(tag);
         return new ModelAndView("redirect:/index");   
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteTag(@PathVariable Integer id){
+    public ModelAndView deleteTag(@PathVariable Integer id) throws TagNotFoundException {
         
         tagService.deleteTag(id);
         return new ModelAndView("redirect:/index");

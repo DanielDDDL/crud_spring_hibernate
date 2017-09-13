@@ -1,6 +1,7 @@
 
 package br.mackenzie.lfs.crud_spring_hibernate.controllers;
 
+import br.mackenzie.lfs.crud_spring_hibernate.exceptions.BookNotFoundException;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
 import br.mackenzie.lfs.crud_spring_hibernate.model.request.TagPropertyEditor;
@@ -62,14 +63,14 @@ public class BookController {
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id){
-                
+    public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id) throws BookNotFoundException {
+
         bookService.updateBook(book);
         return new ModelAndView("redirect:/index");   
     }
     
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteBook(@PathVariable Integer id){
+    public ModelAndView deleteBook(@PathVariable Integer id) throws BookNotFoundException {
         
         bookService.deleteBook(id);        
         return new ModelAndView("redirect:/index");
