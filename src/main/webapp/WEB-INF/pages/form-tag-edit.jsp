@@ -22,6 +22,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Edit tag page</title>
+        <style type="text/css">
+            .error {
+                color: red;
+                font-size: 0.9em;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
         <h1>Edit tag page</h1>
@@ -31,7 +38,10 @@
                 <tbody>
                     <tr>
                         <td>Description</td>
-                        <td><form:input path="description" autocomplete="off"/></td>
+                        <td>
+                            <form:input path="description" autocomplete="off"/>
+                            <form:errors path="description" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="submit" value="Edit" /></td>

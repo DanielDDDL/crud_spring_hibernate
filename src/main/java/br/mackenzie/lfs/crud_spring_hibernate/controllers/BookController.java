@@ -72,7 +72,14 @@ public class BookController {
     }
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editBookProcess(@ModelAttribute Book book, @PathVariable Integer id) throws BookNotFoundException {
+    public ModelAndView editBookProcess(@ModelAttribute @Valid Book book, BindingResult bindingResult) throws BookNotFoundException {
+
+        if(bindingResult.hasErrors()){
+            ModelAndView modelAndView = new ModelAndView("form-book-edit");
+            modelAndView.addObject("book", book);
+            modelAndView.addObject("tags", tagService.getTags());
+            return modelAndView;
+        }
 
         bookService.updateBook(book);
         return new ModelAndView("redirect:/index");   
