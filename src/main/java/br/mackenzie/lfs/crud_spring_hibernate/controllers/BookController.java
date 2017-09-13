@@ -14,6 +14,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -43,7 +44,15 @@ public class BookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addBookProcess(@ModelAttribute Book book, BindingResult bindingResult) {
+    public ModelAndView addBookProcess(@ModelAttribute @Valid Book book, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("form-book");
+            modelAndView.addObject("book", book);
+            modelAndView.addObject("tags", tagService.getTags());
+            return modelAndView;
+
+        }
 
         bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");
@@ -51,7 +60,7 @@ public class BookController {
     
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editBookPage(@PathVariable Integer id) {
-                
+
         Book book = bookService.getBook(id);        
         List<Tag> tags = tagService.getTags();
         
