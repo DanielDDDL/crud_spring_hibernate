@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -20,6 +21,7 @@ public class Tag implements Serializable {
     private Integer id;
     
     @Column(name = "description", nullable = false, length = 255)
+    @Size(min=2, max=30)
     private String description;
 
     @ManyToMany(cascade = {
