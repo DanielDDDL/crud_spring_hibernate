@@ -23,11 +23,10 @@ public class BookServiceImp implements BookService{
     @Override
     @Transactional
     public void addBook(Book book) {
-
-//        Book createdBook = book;
-//        bookDao.save(createdBook);
-
-        bookDao.save(book);
+        
+        Book createdBook = book;
+        bookDao.save(createdBook);
+        
     }
 
     @Override

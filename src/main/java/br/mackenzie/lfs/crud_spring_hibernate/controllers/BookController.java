@@ -9,13 +9,13 @@ import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import org.springframework.validation.BindingResult;
 
 /**
  *
@@ -53,7 +53,6 @@ public class BookController {
             return modelAndView;
 
         }
-
         bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");
     }

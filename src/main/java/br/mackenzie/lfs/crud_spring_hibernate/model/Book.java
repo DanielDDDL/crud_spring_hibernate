@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -28,18 +29,16 @@ public class Book implements Serializable{
     @Size(min=2, max=30)
     private String author;
     
-    @ManyToMany(cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.REFRESH,
-                    CascadeType.PERSIST
-                }, 
-                fetch = FetchType.EAGER)
-    @JoinTable(name = "book_tag",
+    @ManyToMany(fetch = FetchType.EAGER, 
+                cascade = {
+                    CascadeType.DETACH
+                },
+                targetEntity = Tag.class)
+    @JoinTable(name = "tb_book_tag",
                joinColumns = { @JoinColumn(name = "book_id") },
                inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     private List<Tag> tags;
-
+    
     public Integer getId() {
         return id;
     }
@@ -106,6 +105,12 @@ public class Book implements Serializable{
         return true;
     }
     
-    
-    
+    @PreRemove 
+    private void removeTagsFromBook(){
+                
+        for(Tag tag : tags){
+            tag.getBooks().remove(this);
+        }
+
+    }   
 }

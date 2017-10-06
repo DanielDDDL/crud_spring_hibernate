@@ -25,20 +25,20 @@ public class TagServiceImp implements TagService{
     @Transactional
     public void addTag(Tag tag) {
 
-        tagDao.save(tag);
+        Tag createdTag = tag;
+        tagDao.save(createdTag);
     }
 
     @Override
     @Transactional(rollbackFor = TagNotFoundException.class)
     public void updateTag(Tag tag) throws TagNotFoundException {
-
+       
         Tag updatedTag = tagDao.findOne(tag.getId());
 
         if(updatedTag == null)
             throw new TagNotFoundException();
 
         updatedTag.setDescription(tag.getDescription());
-        updatedTag.setBooks(tag.getBooks());
         tagDao.save(updatedTag);
 
     }

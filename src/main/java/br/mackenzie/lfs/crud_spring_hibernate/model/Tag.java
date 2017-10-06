@@ -24,16 +24,7 @@ public class Tag implements Serializable {
     @Size(min=2, max=30)
     private String description;
 
-    @ManyToMany(cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.REFRESH,
-                    CascadeType.PERSIST
-                },
-                fetch = FetchType.EAGER)
-    @JoinTable(name = "book_tag",
-               joinColumns = { @JoinColumn(name = "tag_id") },
-               inverseJoinColumns = { @JoinColumn(name = "book_id") })
+    @ManyToMany(mappedBy = "tags")
     private List<Book> books;
     
     public Integer getId() {
@@ -84,6 +75,14 @@ public class Tag implements Serializable {
     @Override
     public String toString() {
         return this.description;
+    }
+    
+    @PreRemove
+    private void removeBooksFromTag(){
+        
+        for(Book book : books){
+            book.getTags().remove(this);
+        }
     }
     
 }
