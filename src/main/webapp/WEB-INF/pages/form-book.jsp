@@ -33,7 +33,6 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            
                             <form:checkboxes path="tags" 
                                              items="${tags}"
                                              itemLabel="description"
