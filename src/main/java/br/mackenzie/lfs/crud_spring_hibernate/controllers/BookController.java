@@ -9,7 +9,6 @@ import br.mackenzie.lfs.crud_spring_hibernate.services.BookService;
 import br.mackenzie.lfs.crud_spring_hibernate.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,8 +42,8 @@ public class BookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addBookProcess(@ModelAttribute Book book, BindingResult bindingResult) {
-
+    public ModelAndView addBookProcess(@ModelAttribute Book book) {
+       
         bookService.addBook(book);
         return new ModelAndView("redirect:/book/add");
     }
@@ -54,6 +53,7 @@ public class BookController {
                 
         Book book = bookService.getBook(id);        
         List<Tag> tags = tagService.getTags();
+        System.out.println("Quantity of tags: " + book.getTags().size() + "!!! So many");
         
         ModelAndView modelAndView = new ModelAndView("form-book-edit");
         modelAndView.addObject("book",book);
