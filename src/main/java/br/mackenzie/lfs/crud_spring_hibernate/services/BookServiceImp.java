@@ -2,46 +2,73 @@
 package br.mackenzie.lfs.crud_spring_hibernate.services;
 
 import br.mackenzie.lfs.crud_spring_hibernate.dao.BookDao;
+import br.mackenzie.lfs.crud_spring_hibernate.exceptions.BookNotFoundException;
 import br.mackenzie.lfs.crud_spring_hibernate.model.Book;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  *
  * @author Dias
  */
 @Service
-@Transactional
 public class BookServiceImp implements BookService{
 
-    @Autowired
+    @Resource
     private BookDao bookDao;
-    
+
     @Override
+    @Transactional
     public void addBook(Book book) {
-        bookDao.addBook(book);
+        
+        Book createdBook = book;
+        bookDao.save(createdBook);
+        
     }
 
     @Override
-    public void updateBook(Book book) {
-        bookDao.updateBook(book);
+    @Transactional(rollbackFor = BookNotFoundException.class)
+    public void updateBook(Book book) throws BookNotFoundException {
+
+        Book updatedBook = bookDao.findOne(book.getId());
+
+        if(updatedBook == null)
+            throw new BookNotFoundException();
+
+        updatedBook.setTitle(book.getTitle());
+        updatedBook.setAuthor(book.getAuthor());
+        updatedBook.setTags(book.getTags());
+        bookDao.save(updatedBook);
     }
 
     @Override
+    @Transactional
     public Book getBook(int id) {
-        return bookDao.getBook(id);
+
+        return bookDao.findOne(id);
     }
 
     @Override
-    public void deleteBook(int id) {
-        bookDao.deleteBook(id);
+    @Transactional(rollbackFor = BookNotFoundException.class)
+    public void deleteBook(int id) throws BookNotFoundException {
+
+        Book deletedBook = bookDao.findOne(id);
+
+        if(deletedBook == null)
+            throw new BookNotFoundException();
+
+        bookDao.delete(id);
+
     }
 
     @Override
+    @Transactional
     public List<Book> getBooks() {
-        return bookDao.getBooks();
+
+        return bookDao.findAll();
     }
-    
+
 }

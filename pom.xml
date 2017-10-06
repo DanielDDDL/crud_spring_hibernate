@@ -16,6 +16,7 @@
         <hibernate.version>5.2.9.Final</hibernate.version>
         <mysql.connector.version>5.1.39</mysql.connector.version>
         <spring.version>4.3.10.RELEASE</spring.version>
+        <jpa.version>1.3.2.RELEASE</jpa.version>
     </properties>
 
     
@@ -37,6 +38,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.3.0.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -75,7 +81,17 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${jpa.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-asm</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <!-- CGLIB is required to process @Configuration classes -->
         <dependency>
             <groupId>cglib</groupId>
@@ -95,7 +111,14 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-        
+
+        <!-- validation dependencies -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>

@@ -2,18 +2,12 @@
 package br.mackenzie.lfs.crud_spring_hibernate.dao;
 
 import br.mackenzie.lfs.crud_spring_hibernate.model.Tag;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Dias
  */
-public interface TagDao {
-    
-    public void addTag(Tag tag);
-    public void updateTag(Tag tag);
-    public Tag getTag(int id);
-    public void deleteTag(int id);
-    public List<Tag> getTags();
-    
+public interface TagDao extends JpaRepository<Tag, Integer> {
+
 }
