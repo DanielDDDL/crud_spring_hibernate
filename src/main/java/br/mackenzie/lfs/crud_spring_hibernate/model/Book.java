@@ -2,6 +2,7 @@
 package br.mackenzie.lfs.crud_spring_hibernate.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -21,9 +22,11 @@ public class Book implements Serializable{
     private Integer id;
     
     @Column(name = "title", nullable = false, length = 255)
+    @Size(min=2, max=30)
     private String title;
     
     @Column(name = "author", nullable = false, length = 255)
+    @Size(min=2, max=30)
     private String author;
     
     @ManyToMany(fetch = FetchType.EAGER, 

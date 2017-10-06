@@ -16,6 +16,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Add book page</title>
+        <style type="text/css">
+            .error {
+                color: red;
+                font-size: 0.9em;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body>
         <h1>Edit book page</h1>
@@ -25,11 +32,18 @@
                 <tbody>
                     <tr>
                         <td>Title:</td>
-                        <td><form:input path="title" autocomplete="off" /></td>
+                        <td>
+                            <form:input path="title" autocomplete="off" />
+                            <form:errors path="title" cssClass="error" />
+                        </td>
+
                     </tr>
                     <tr>
                         <td>Author:</td>
-                        <td><form:input path="author" autocomplete="off" /></td>
+                        <td>
+                            <form:input path="author" autocomplete="off" />
+                            <form:errors path="author" cssClass="error" />
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2">
