@@ -25,7 +25,8 @@ public class TagServiceImp implements TagService{
     @Transactional
     public void addTag(Tag tag) {
 
-        tagDao.save(tag);
+        Tag createdTag = tag;
+        tagDao.save(createdTag);
     }
 
     @Override

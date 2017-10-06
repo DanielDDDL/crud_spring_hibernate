@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -27,15 +28,12 @@ public class Book implements Serializable{
     
     @ManyToMany(fetch = FetchType.EAGER, 
                 cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH
+                    CascadeType.DETACH
                 },
                 targetEntity = Tag.class)
     @JoinTable(name = "tb_book_tag",
-               inverseJoinColumns = { @JoinColumn(name = "tag_id") },
-               joinColumns = { @JoinColumn(name = "book_id") })
+               joinColumns = { @JoinColumn(name = "book_id") },
+               inverseJoinColumns = { @JoinColumn(name = "tag_id") })
     private List<Tag> tags;
     
     public Integer getId() {
@@ -106,9 +104,7 @@ public class Book implements Serializable{
     
     @PreRemove 
     private void removeTagsFromBook(){
-        
-        System.out.println("Hey! Preremoving stuff from Book. New and running");
-        
+                
         for(Tag tag : tags){
             tag.getBooks().remove(this);
         }
